@@ -10,7 +10,33 @@
         .axeon-teal { color: #3FB8AF; }
         .card-bg { background-color: #161b22; border: 1px solid #30363d; }
         .ht1-glow { box-shadow: 0 0 20px rgba(63, 184, 175, 0.2); border: 1px solid #3FB8AF; }
-    </style>
+        .ht1-glow { box-shadow: 0 0 20px rgba(63, 184, 175, 0.2); border: 1px solid #3FBB8F; }
+
+    /* --- NEW MOBILE RESPONSIVENESS CODE --- */
+    @media (max-width: 640px) {
+      .p-6 { padding: 0.8rem !important; }
+      .md\:p-12 { padding: 1rem !important; }
+
+      /* Shrinks name and avatar so they don't push the Tier off-screen */
+      .text-xl { font-size: 1rem !important; }
+      .w-14.h-14 { width: 2.5rem !important; height: 2.5rem !important; }
+      .gap-5 { gap: 0.6rem !important; }
+
+      /* Makes the Tier badge fit on the right side */
+      .px-5.py-2 { 
+        padding: 0.3rem 0.6rem !important; 
+        font-size: 0.75rem !important; 
+      }
+
+      /* Forces the table to stay 100% width of the phone */
+      table { width: 100%; table-layout: fixed; }
+      
+      /* Column widths: Rank 15%, Player 55%, Placement 30% */
+      th:nth-child(1), td:nth-child(1) { width: 18%; }
+      th:nth-child(2), td:nth-child(2) { width: 52%; }
+      th:nth-child(3), td:nth-child(3) { width: 30%; text-align: right; }
+    }
+</style>
 </head>
 <body class="p-6 md:p-12">
     <div class="max-w-5xl mx-auto text-center mb-12">
