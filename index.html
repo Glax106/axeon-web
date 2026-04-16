@@ -32,29 +32,38 @@
     </div>
 
     <script>
-        async function fetchLeaderboard() {
-            const response = await fetch('leaderboard.json?nocache=' + Math.random());
-            const players = await response.json();
-            const listBody = document.getElementById('leaderboard-body');
-            listBody.innerHTML = players.map((p, index) => `
-                <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
-                    <td class="p-6 font-mono text-gray-600 text-lg">#${index + 1}</td>
-                    <td class="p-6 flex items-center gap-5">
-                        <div class="w-14 h-14 bg-black rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
-                            <img src="https://raw.githubusercontent.com/Glax106/axeon-web/main/skin/${player.ign}.png" 
-     alt="${player.ign}" 
-     onerror="this.src='https://raw.githubusercontent.com/Glax106/axeon-web/main/skin/default.png';">
-     
-                        </div>
-                        <div class="font-black text-white text-xl tracking-tight uppercase">${p.ign}</div>
-                    </td>
-                    <td class="p-6 text-right">
-                        <span class="px-5 py-2 rounded-full text-xs font-black bg-white/5 border border-white/10 text-white tracking-widest uppercase">${p.tier}</span>
-                    </td>
-                </tr>`).join('');
-        }
-        fetchLeaderboard();
+  async function fetchLeaderboard() {
+    try {
+      // Adding a random number prevents the phone from showing "old" data
+      const response = await fetch('leaderboard.json?nocache=' + Math.random());
+      const players = await response.json();
+      const listBody = document.getElementById('leaderboard-body');
+      
+      listBody.innerHTML = players.map((p, index) => `
+        <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+          <td class="p-6 font-mono text-gray-400 text-lg">#${index + 1}</td>
+          <td class="p-6 flex items-center gap-5">
+            <div class="w-14 h-14 bg-black rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
+              <img src="skin/${p.ign}.png" 
+                   class="w-full h-full object-cover"
+                   onerror="this.src='skin/default.png';">
+            </div>
+            <div class="font-black text-white text-xl tracking-tight uppercase">${p.ign}</div>
+          </td>
+          <td class="p-6 text-right">
+            <span class="px-5 py-2 rounded-full text-xs font-black bg-white/5 border border-white/10 text-axion-teal">
+              ${p.tier}
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    } catch (e) {
+      console.error("Error loading leaderboard:", e);
+    }
+  }
+  fetchLeaderboard();
     </script>
+    
 </body>
 </html>
 
