@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axeon Bedrock Tier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0b0e11; color: white; font-family: 'Inter', sans-serif; }
+        .axeon-teal { color: #3FB8AF; }
+        .card-bg { background-color: #161b22; border: 1px solid #30363d; }
+        .ht1-glow { box-shadow: 0 0 20px rgba(63, 184, 175, 0.2); border: 1px solid #3FB8AF; }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+    <div class="max-w-5xl mx-auto text-center mb-12">
+        <h1 class="text-6xl font-black italic tracking-tighter axeon-teal uppercase">AXEON <span class="text-white">BEDROCK TIER</span></h1>
+        <p class="text-gray-500 mt-3 tracking-[0.2em] text-xs uppercase font-bold">The Official Sword Tiering System</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto card-bg rounded-2xl overflow-hidden shadow-2xl">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-black/40 text-gray-500 uppercase text-[10px] tracking-[0.3em]">
+                    <th class="p-6">Rank</th>
+                    <th class="p-6">Player</th>
+                    <th class="p-6 text-right">Placement</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        async function fetchLeaderboard() {
+            const response = await fetch('leaderboard.json?nocache=' + Math.random());
+            const players = await response.json();
+            const listBody = document.getElementById('leaderboard-body');
+            listBody.innerHTML = players.map((p, index) => `
+                <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+                    <td class="p-6 font-mono text-gray-600 text-lg">#${index + 1}</td>
+                    <td class="p-6 flex items-center gap-5">
+                        <div class="w-14 h-14 bg-black rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
+                            <img src="skins/${p.ign}.png" onerror="this.src='https://ui-avatars.com/api/?name=${p.ign}&background=3FB8AF&color=fff&bold=true'" class="w-full h-full object-cover">
+                        </div>
+                        <div class="font-black text-white text-xl tracking-tight uppercase">${p.ign}</div>
+                    </td>
+                    <td class="p-6 text-right">
+                        <span class="px-5 py-2 rounded-full text-xs font-black bg-white/5 border border-white/10 text-white tracking-widest uppercase">${p.tier}</span>
+                    </td>
+                </tr>`).join('');
+        }
+        fetchLeaderboard();
+    </script>
+</body>
+</html>
+
